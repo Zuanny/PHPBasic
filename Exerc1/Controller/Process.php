@@ -2,10 +2,12 @@
 
 require_once './../Model/IMC.php';
 require_once './../Model/ConvertTemp.php';
+require_once './../Model/Product.php';
 header('Content-Type: application/json');
 
 use Model\ConvertTemp;
 use Model\IMC;
+use Model\Product;
 
 if(!isset($_POST['Action']))
     return 'ERROR';
@@ -17,23 +19,23 @@ class Controller {
     {
         switch ($_POST['Action']) {
             case 'CalculateIMC':
-            $this->CalculateIMC($_POST);
+                return $this->CalculateIMC($_POST);
                 break;
 
             case 'ConvertTemp':
-                $this->ConvertTemp($_POST);
-                break;
-            default:
-                throw new Error("not find");
-                break;
+                return $this->ConvertTemp($_POST);
 
+            case 'calculateDiscount':
+                return $this->calculateDiscount($_POST);
+            default:
+                throw new Error("not found");
         }
     }
 
     private function CalculateIMC($Params){
 
         if (!isset($Params['Height']) || !isset($Params['Weight']))
-            throw new Error("Teste");
+            throw new Error("Error");
 
         $NewIMC = new IMC($Params['Height'], $Params['Weight']);
 
@@ -50,7 +52,7 @@ class Controller {
     private function ConvertTemp($Params){
 
         if (!isset($Params['Fahrenheit']) || !isset($Params['Celsius']))
-            throw new Error("Erorr");
+            throw new Error("Error");
 
         $ToType = $Params['Fahrenheit'] == '' ? 'Fahrenheit' : 'Celsius';
         $Value = $Params['Fahrenheit'] !== '' ? $Params['Fahrenheit'] : $Params['Celsius'];
@@ -65,6 +67,15 @@ class Controller {
             file_put_contents($JsonPath, $json);
 
         echo json_encode($NewConvertTemp->response());
+    }
+
+    private function calculateDiscount($Params){
+        if (!isset($Params['DesireValue']) || !isset($Params['ProductValue']))
+            throw new Error("Error");
+
+        $Product = new Product($Params['ProductValue']);
+        $Product->setDiscountNecessary($Params['DesireValue']);
+        echo $Product->DiscountToPercentage();
     }
 }
 

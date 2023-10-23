@@ -11,7 +11,7 @@ class ConvertTemp
     public String $ToType;
     public Float $Fahrenheit;
     public Float $Celsius;
-    private function setParams(String $ToType, Float $Value){
+    private function setParams(String $ToType, Float $Value): void{
         $this->ToType = $ToType;
         switch ($ToType){
             case 'Fahrenheit':
@@ -22,10 +22,9 @@ class ConvertTemp
                 break;
         }
         $this->Convert($ToType);
-
     }
 
-    private function Convert (String $ToType){
+    private function Convert (String $ToType): void{
         switch ($ToType){
             case 'Fahrenheit':
                 $this->Fahrenheit = ($this->Celsius * 1.8 + 32);
@@ -35,11 +34,11 @@ class ConvertTemp
                 break;
         }
     }
-    public function response(){
+    public function response(): array{
         $Response = $this->ToType == 'Fahrenheit' ? $this->Fahrenheit : $this->Celsius;
         return [$this->ToType, $Response];
     }
-    public function toObject(){
+    public function toObject() : ConvertTemp{
         return $this;
     }
 

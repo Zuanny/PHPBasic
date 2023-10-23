@@ -23,11 +23,13 @@
     <select id="ChoosenExerc">
         <option  value="IMC" > <?php echo gettext('IMC')?></option>
         <option id="TEMPERATURA"><?php echo gettext('Fahrenheit x Celsius')?></option>
+        <option id="NEEDDESCONT"><?php echo gettext('Calculate Descont')?></option>
     </select>
 
     <div id="MenuExerc" >
         <div  class="Exerc" id="IMC"> <?php echo include_once './IMCView.php' ?></div>
         <div  class="Exerc hide" id="ConvertTemp"> <?php echo include_once './ConvertView.php' ?></div>
+        <div  class="Exerc hide" id="NeedDescont"> <?php echo include_once './NeedDiscontView.php' ?></div>
     </div>
 
 
@@ -48,6 +50,9 @@
                 break;
             case 'Fahrenheit x Celsius':
                 $('#ConvertTemp').removeClass('hide')
+                break;
+            case 'Calculate Descont':
+                $('#NeedDescont').removeClass('hide')
                 break;
 
         }

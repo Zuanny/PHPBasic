@@ -12,11 +12,11 @@ class IMC
     public Float $Height;
     public Float $Weight;
     public Float $IMC;
-    public function Calculate(){
+    public function Calculate(): void{
         $this->IMC = ($this->Weight /( $this->Height * $this->Height));
     }
 
-    public function toObject(){
+    public function toObject(): IMC{
         return $this;
     }
 }
