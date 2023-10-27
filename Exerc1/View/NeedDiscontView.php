@@ -32,10 +32,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-   function changeResult (Result) {
+   function changeDiscount (Result) {
        let Element = document.getElementById('resultDiscount');
-       console.log(Element)
-       console.log(Result)
        Element.textContent = Result.toString();
    }
 
@@ -47,7 +45,7 @@ function calculateDiscount() {
 
     $.post('../Controller/Process.php', Data, function () {
     }).done((response) => {
-       changeResult(response)
+        changeDiscount(response)
     })
 };
 </script>

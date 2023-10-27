@@ -11,7 +11,25 @@
 .hide {
     display: none;
 }
-.Exerc {
+#MenuExerc {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+
+    background-color: aliceblue;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+input {
+    border-radius: 8px;
+    border-color: white;
+}
+
+input[type='submit']{
+    background-color: #00a6ff;
+    color: white;
+    width: 60px;
 
 }
 </style>
@@ -21,15 +39,17 @@
 <div>
     <p><?php gettext('Escolha o exercicio:')?></p>
     <select id="ChoosenExerc">
-        <option  value="IMC" > <?php echo gettext('IMC')?></option>
-        <option id="TEMPERATURA"><?php echo gettext('Fahrenheit x Celsius')?></option>
-        <option id="NEEDDESCONT"><?php echo gettext('Calculate Descont')?></option>
+        <option ><?php echo gettext('IMC')?></option>
+        <option ><?php echo gettext('Fahrenheit x Celsius')?></option>
+        <option ><?php echo gettext('Calculate Discount')?></option>
+        <option ><?php echo gettext('Compound Interest')?></option>
     </select>
 
     <div id="MenuExerc" >
         <div  class="Exerc" id="IMC"> <?php echo include_once './IMCView.php' ?></div>
         <div  class="Exerc hide" id="ConvertTemp"> <?php echo include_once './ConvertView.php' ?></div>
         <div  class="Exerc hide" id="NeedDescont"> <?php echo include_once './NeedDiscontView.php' ?></div>
+        <div  class="Exerc hide" id="CompoundInterest"> <?php echo include_once './CompoundInterestView.php' ?></div>
     </div>
 
 
@@ -51,10 +71,12 @@
             case 'Fahrenheit x Celsius':
                 $('#ConvertTemp').removeClass('hide')
                 break;
-            case 'Calculate Descont':
+            case 'Calculate Discount':
                 $('#NeedDescont').removeClass('hide')
                 break;
-
+            case 'Compound Interest':
+                $('#CompoundInterest').removeClass('hide')
+                break;
         }
     })
 </script>

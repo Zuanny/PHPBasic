@@ -3,8 +3,10 @@
 require_once './../Model/IMC.php';
 require_once './../Model/ConvertTemp.php';
 require_once './../Model/Product.php';
+require_once './../Model/CompoundInterest.php';
 header('Content-Type: application/json');
 
+use Model\CompoundInterest;
 use Model\ConvertTemp;
 use Model\IMC;
 use Model\Product;
@@ -18,15 +20,19 @@ class Controller {
     public function init()
     {
         switch ($_POST['Action']) {
+
             case 'CalculateIMC':
                 return $this->CalculateIMC($_POST);
-                break;
 
             case 'ConvertTemp':
                 return $this->ConvertTemp($_POST);
 
             case 'calculateDiscount':
                 return $this->calculateDiscount($_POST);
+
+            case 'calculateCompoundInterest' :
+                return $this->calculateCompoundInterest($_POST);
+
             default:
                 throw new Error("not found");
         }
@@ -76,6 +82,15 @@ class Controller {
         $Product = new Product($Params['ProductValue']);
         $Product->setDiscountNecessary($Params['DesireValue']);
         echo $Product->DiscountToPercentage();
+    }
+
+    private function calculateCompoundInterest($Params){
+        if (!isset($Params['Capital']) || !isset($Params['Meses']) || !isset($Params['Juros'])){
+            echo ("Error");
+            return;
+        }
+        $CompoundInterest = new CompoundInterest($Params['Capital'], $Params['Meses'], $Params['Juros']);
+        echo $CompoundInterest->calculateFinalAmount();
     }
 }
 

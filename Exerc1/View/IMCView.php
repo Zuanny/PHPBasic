@@ -25,27 +25,30 @@
         </form>
 
 
-    <h3><?php echo gettext('Result: ') ?><span id="result" >0.0</span></h3>
+    <h3><?php echo gettext('Result: ') ?><span id="resultIMC" >0.0</span></h3>
 </div>
 </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-   function changeResult (Result) {
-       const RESULT = document.getElementById('result');
-       RESULT.textContent = Result;
+   function changeIMC (Result) {
+       console.log(Result)
+       let RESULT = document.getElementById('resultIMC');
+       console.log(RESULT)
+       RESULT.textContent = Result.toString();
    }
 
-    const FORM = document.getElementById('IMC');
+    let FORM = document.getElementById('FormIMC');
     FORM.addEventListener('click', (Event) => Event.preventDefault());
 
 function calculateImc() {
     let Data = $('#FormIMC').serializeArray();
 
     $.post('../Controller/Process.php', Data, function () {
-    }).done((text) => {
-       changeResult(text)
+    }).done((Response) => {
+        alert(Response)
+        changeIMC(Response)
     })
 };
 </script>

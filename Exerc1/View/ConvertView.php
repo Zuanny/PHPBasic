@@ -28,12 +28,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-   function changeResult (Result) {
+   function changeTemps (Result) {
        let result = document.getElementById(Result[0]);
        result.value = Result[1];
    }
 
-    const FORMTEMP = document.getElementById('FormTemp');
+    let FORMTEMP = document.getElementById('FormTemp');
    FORMTEMP.addEventListener('click', (Event) => Event.preventDefault());
 
 function convertTemp() {
@@ -41,7 +41,7 @@ function convertTemp() {
 
     $.post('../Controller/Process.php', Data, function () {
     }).done((response) => {
-       changeResult(response)
+        changeTemps(response)
     })
 };
 
